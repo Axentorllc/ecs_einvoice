@@ -9,6 +9,11 @@ app_color = "grey"
 app_email = "info@erpcloud.systems"
 app_license = "MIT"
 
+
+
+
+doctype_js = {"Sales Invoice" : "ecs_einvoice/sales_invoice/sales_invoice.js"}
+
 # Includes in <head>
 # ------------------
 
