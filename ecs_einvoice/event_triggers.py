@@ -137,7 +137,9 @@ def siv_before_validate(doc, method=None):
     pass
 @frappe.whitelist()
 def siv_validate(doc, method=None):
-    pass
+    for x in doc.items:
+        x.tax_code = frappe.db.get_value("Item Tax Template", x.item_tax_template, "tax_code")
+        x.tax_subtype_code  = frappe.db.get_value("Item Tax Template", x.item_tax_template, "tax_subtype_code")
 @frappe.whitelist()
 def siv_on_submit(doc, method=None):
     posting_date = doc.posting_date

@@ -131,8 +131,8 @@ def test(name):
             
     invoiceLines =[]
     for x in invoice.items:
-        item_tax_rate = frappe.db.sql(""" select tax_rate from `tabItem Tax Template Detail` where parent = '{parent}' """.format(parent=x.item_tax_template),as_dict=0)
-        salesTotal =  round((x.rate + x.discount_amount),5)
+        item_tax_rate = frappe.db.sql(""" select tax_rate from `tabItem Tax Template Detail` where parent = '{parent}' """.format(parent=x.item_tax_template), as_dict=0)
+        salesTotal = round((x.rate + x.discount_amount), 5)
         invoiceLines.append({
             "description": x.item_name,
             "itemType": x.eta_item_type,
@@ -143,27 +143,28 @@ def test(name):
 
 
     
-            "salesTotal": round((salesTotal * x.qty),5),
-            "total": round(((x.rate + (x.rate*item_tax_rate[0][0]/100))*x.qty),5),
+            "salesTotal": round((salesTotal * x.qty), 5),
+            "total": round(((x.rate + (x.rate*item_tax_rate[0][0]/100))*x.qty), 5),
             "valueDifference": 0.00,
             "totalTaxableFees": 0,
-            "netTotal": round(x.amount,5),
-            "itemsDiscount": round((x.discount_amount * x.qty),5),
+            "netTotal": round(x.amount, 5),
+            "itemsDiscount": round((x.discount_amount * x.qty), 5),
             "unitValue": {
                         "currencySold": invoice.currency,
-                        "amountEGP": round(salesTotal,5)
+                        "amountEGP": round(salesTotal, 5)
                     },
             "discount": {
-                        "rate": round(x.discount_percentage,5),
-                        "amount": round((x.discount_amount * x.qty),5)
+                        "rate": round(x.discount_percentage, 5),
+                        "amount": round((x.discount_amount * x.qty), 5)
                     },
             "taxableItems": [
                         {
-                            "taxType": "T1",
-                            "amount": round((x.net_amount*item_tax_rate[0][0]/100),5),
-                            "subType": "T1",
+                            "taxType": x.tax_code,
+                            "amount": round((x.net_amount*item_tax_rate[0][0]/100), 5),
+                            "subType": "V009",
                             "rate": item_tax_rate[0][0]
-                        },]
+                        },
+            ]
         })
 
     

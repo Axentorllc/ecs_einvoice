@@ -10,8 +10,6 @@ app_email = "info@erpcloud.systems"
 app_license = "MIT"
 
 
-
-
 doctype_js = {
 	"Sales Invoice": "ecs_einvoice/sales_invoice/sales_invoice.js",
 	"Item Tax Template": "ecs_einvoice/item_tax_template/item_tax_template.js"
